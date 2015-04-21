@@ -7,7 +7,7 @@
 #' @examples
 #' jammer_stats(data)
 
-jammer_stats <- function(data) {
+JammerStats <- function(data) {
   # itialize and format dataframe
   data<-data
   colnames(data) <- c("Jam","Jammer","Team","Lead","Points")
