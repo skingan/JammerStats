@@ -12,7 +12,12 @@ JammerStats <- function(data) {
   data<-data
   colnames(data) <- c("Jam","Jammer","Team","Lead","Points")
   jammers<-as.character(unique(data$Jammer))
-  jammer_stats <- data.frame( "Jammer" = character(length(jammers)), "Team" = character(length(jammers)), "LJ_Percentage" = numeric(length(jammers)), "Total_Points" = integer(length(jammers)), stringsAsFactors=FALSE)
+  jammer_stats <- data.frame( "Jammer" = character(length(jammers)),
+                              "Team" = character(length(jammers)), 
+                              "NumberJams" = integer(length(jammers)),
+                              "LJ_Percentage" = numeric(length(jammers)), 
+                              "Total_Points" = integer(length(jammers)), 
+                              stringsAsFactors=FALSE)
   # loop through jammers
   for (i in 1:length(jammers)) {
     jammer_data <- data[which(data$Jammer == jammers[i]),]
@@ -20,6 +25,7 @@ JammerStats <- function(data) {
     jammer_stats$Team[i] <- as.character(jammer_data$Team[1])
     jammer_stats$LJ_Percentage[i] <- LJ(jammer_data$Lead)
     jammer_stats$Total_Points[i] <- total_points(jammer_data$Points)
+    jammer_stats$NumberJams[i] <- NJams(jammer_data$Lead)
   }
   return(jammer_stats[ order(-jammer_stats$Total_Points),])
 }
@@ -35,5 +41,10 @@ LJ <-function(list){
   S <- sum(list)
   P <- S/N 
   return(P)
+}
+
+NJams <- function(list) {
+  N<-length(list)
+  return(N)
 }
 
